@@ -1,0 +1,55 @@
+= todo-app-steep1
+
+In this steep we will
+
+* bootstrapping the project
+
+[source,bash]
+----
+mvn io.quarkus:quarkus-maven-plugin:1.11.0.Final:create \
+    -DprojectGroupId=dk.jarry \
+    -DprojectArtifactId=todo-app-steep1 \
+    -DclassName="dk.jarry.todo.boundary.ToDoResource" \
+    -Dpath="/todos"
+cd todo-app-steep1
+----
+
+* look into the file structure
+    - docker
+    - java
+    - resources
+
+* run the app for the first time
+
+http://localhost:8080/todos
+
+* We will have a look into `quarkus-todo-app-1.0.0-SNAPSHOT-runner.jar` to see what happens behind the screen.
+
+
+* add configuration (`@ConfigProperty`)
+
+*From application.properties*
+
+----
+message1="ToDo message1 - From application.properties"
+----
+
+*From command line*
+
+[source,bash]
+----
+./mvnw compile quarkus:dev -Dmessage2="ToDo message2 - From command line"
+----
+
+*From environment*
+
+[source,bash]
+----
+export message3="ToDo message3 - From environment"
+----
+
+
+==== Links
+
+- https://quarkus.io/guides/config[Quarkus - Configuring Your Application]
+- https://github.com/Konloch/bytecode-viewer[Bytecode Viewer]
