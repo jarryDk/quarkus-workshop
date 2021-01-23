@@ -1,0 +1,119 @@
+= todo-app-steep3
+
+In this steep we will
+
+* add more extensions
+* have a look into smallrye
+	- smallrye-opentracing
+	- smallrye-openapi
+	- smallrye-health
+	- smallrye-metrics
+
+[source,bash]
+----
+./mvnw quarkus:list-extensions
+----
+
+[source,bash]
+----
+./mvnw quarkus:add-extension -Dextensions="smallrye-opentracing,smallrye-openapi,smallrye-health,smallrye-metrics"
+----
+
+== pom.xml
+
+[source,xml]
+----
+<dependency>
+	<groupId>io.quarkus</groupId>
+	<artifactId>quarkus-smallrye-opentracing</artifactId>
+</dependency>
+<dependency>
+	<groupId>io.quarkus</groupId>
+	<artifactId>quarkus-smallrye-openapi</artifactId>
+</dependency>
+<dependency>
+	<groupId>io.quarkus</groupId>
+	<artifactId>quarkus-smallrye-health</artifactId>
+</dependency>
+<dependency>
+	<groupId>io.quarkus</groupId>
+	<artifactId>quarkus-smallrye-metrics</artifactId>
+</dependency>
+----
+
+=== MicroProfile Health
+
+http://localhost:8080/health
+
+http://localhost:8080/health-ui/ (Not part of MicroProfile)
+
+[source,bash]
+----
+curl -X GET \
+	http://localhost:8080/health \
+	-H 'Accept: application/json' 
+----
+
+
+https://quarkus.io/guides/health-guide[quarkus.io - Health Guide]
+
+
+=== MicroProfile Metrics
+
+http://localhost:8080/metrics/application
+
+[source,bash]
+----
+curl -X GET \
+	http://localhost:8080/metrics/application \
+	-H 'Accept: application/json' 
+----
+
+https://quarkus.io/guides/metrics-guide[quarkus.io - Metrics Guide]
+
+
+=== OpenAPI and SwaggerUI
+
+- http://localhost:8080/openapi[OpenAPI]
+- http://localhost:8080/swagger-ui[swagger-ui]
+
+OpenAPI and Swagger-UI only works in dev and test mode. 
+
+
+If you want to make it available in production too, you can include the following configuration in your application.properties:
+----
+quarkus.swagger-ui.always-include=true
+----
+
+
+[source,bash]
+----
+./mvnw compile quarkus:dev
+----
+
+https://quarkus.io/guides/openapi-swaggerui-guide[quarkus.io - OpenAPI SwaggerUI Guide]
+
+=== Opentracing
+
+Start Jaeger in docker
+
+[source,bash]
+----
+docker run  -it --rm=true \
+  -p 5775:5775/udp \
+  -p 6831:6831/udp \
+  -p 6832:6832/udp \
+  -p 5778:5778 \
+  -p 16686:16686 \
+  -p 14268:14268 \
+  jaegertracing/all-in-one:1.21
+----
+
+You can then navigate to http://localhost:16686 to access the Jaeger UI.
+
+== Links
+
+- https://quarkus.io/guides/microprofile-health[Quarkus - MicroProfile Health]
+- https://quarkus.io/guides/microprofile-metrics[Quarkus - MicroProfile Metrics]
+- https://quarkus.io/guides/openapi-swaggerui[Quarkus - Using OpenAPI and Swagger UI]
+- https://quarkus.io/guides/opentracing[Quarkus - Using OpenTracing]
