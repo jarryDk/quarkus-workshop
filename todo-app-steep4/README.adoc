@@ -1,0 +1,8 @@
+= todo-app-steep4
+
+Add
+ - DemoHealthCheck
+ - @Traced -> ToDoService
+ - @Counted -> ToDoResource
+ - @Timed -> ToDoResource
+ - @Operation -> ToDoResource
