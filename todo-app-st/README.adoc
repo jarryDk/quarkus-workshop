@@ -1,0 +1,24 @@
+= todo-app-st
+
+This projec is the System Test (st) of our todo-app.
+
+Demonstrates `@QuarkusTest` - CDI.
+
+Containg
+
+* main
+	- ToDoResourceClient
+
+* test
+	- ToDoResourceTest
+
+== Run the application
+
+[source,bash]
+----
+./mvnw test
+----
+
+== Links
+
+https://quarkus.io/guides/getting-started-testing[Quarkus - Testing Your Application]
