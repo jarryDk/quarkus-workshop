@@ -1,0 +1,27 @@
+= todo-app-steep2-panache
+
+In this steep we will
+
+* add more extensions
+* update our ToDoService to use Panache
+
+
+[source,bash]
+----
+./mvnw quarkus:list-extensions
+----
+
+[source,bash]
+----
+./mvnw quarkus:add-extension -Dextensions="hibernate-orm-rest-data-panache"
+----
+
+== pom.xml
+
+[source,xml]
+----
+<dependency>
+	<groupId>io.quarkus</groupId>
+	<artifactId>quarkus-hibernate-orm-rest-data-panache</artifactId>
+</dependency>
+----

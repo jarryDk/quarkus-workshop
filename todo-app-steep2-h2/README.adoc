@@ -1,0 +1,30 @@
+= todo-app-steep2-h2
+
+
+[source,bash]
+----
+./mvnw quarkus:add-extension -Dextensions="jdbc-h2"
+----
+
+
+== pom.xml
+
+[source,xml]
+----
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-jdbc-h2</artifactId>
+</dependency>
+----
+
+== application.properties (H2)
+
+----
+# "jdbc:h2:mem" doesn't work in native mode, but native mode uses %prod properties
+quarkus.datasource.db-kind=h2
+quarkus.datasource.jdbc.url=jdbc:h2:mem:hibernate_db
+----
+
+== Links
+
+https://quarkus.io/guides/hibernate-orm[Quarkus - Using Hibernate ORM and JPA]

@@ -1,0 +1,60 @@
+= todo-app-steep2
+
+In this steep we will
+
+* add more extensions
+* config postgresql
+* add a service to our boundary
+* have a look into todo-app-st link:todo-app-st/README.adoc[todo-app-st/README.adoc] 
+
+
+[source,bash]
+----
+./mvnw quarkus:list-extensions
+----
+
+[source,bash]
+----
+./mvnw quarkus:add-extension -Dextensions="resteasy-jsonb,hibernate-orm,jdbc-postgresql"
+----
+
+== pom.xml
+
+[source,xml]
+----
+<dependency>
+	<groupId>io.quarkus</groupId>
+	<artifactId>quarkus-resteasy-jsonb</artifactId>
+</dependency>
+----
+
+[source,xml]
+----
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-hibernate-orm</artifactId>
+</dependency>
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-jdbc-postgresql</artifactId>
+</dependency>
+----
+
+== application.properties (Postgres)
+
+----
+quarkus.datasource.db-kind=postgresql
+quarkus.datasource.jdbc.url=jdbc:postgresql://PostgreSQLDemo:5432/hibernate_db
+quarkus.datasource.jdbc.driver=org.postgresql.Driver
+quarkus.datasource.username=hibernate
+quarkus.datasource.password=hibernate
+quarkus.datasource.jdbc.max-size=8
+quarkus.datasource.jdbc.min-size=2
+
+quarkus.hibernate-orm.database.generation=update
+----
+
+=== Links
+
+https://quarkus.io/guides/rest-json[Quarkus - Writing JSON REST Services]
+https://quarkus.io/guides/hibernate-orm[Quarkus - Using Hibernate ORM and JPA]
