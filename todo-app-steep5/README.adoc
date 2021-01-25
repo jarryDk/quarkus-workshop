@@ -30,4 +30,6 @@ ab -n 100 -c 10 http://localhost:8080/todos
 
 = Links
 
- - https://quarkus.io/guides/microprofile-fault-tolerance[Quarkus - Fault Tolerance]
+ - https://quarkus.io/guides/microprofile-fault-tolerance[Quarkus - Fault Tolerance] 
+ - https://www.tomitribe.com/blog/microprofile-fault-tolerance-annotations[MicroProfile Fault Tolerance Annotations - Tomitribe]
+ - https://www.eclipse.org/community/eclipse_newsletter/2017/september/article4.php[Building a resilient Microservice? All you need is Eclipse MicroProfile Fault Tolerance! | The Eclipse Foundation]
