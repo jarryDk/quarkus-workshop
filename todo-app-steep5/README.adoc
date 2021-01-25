@@ -1,0 +1,33 @@
+= todo-app-steep5
+
+Add
+ - Fault Tolerance
+  * @Bulkhead
+  * @Fallback
+  * @Timeout
+
+[source,bash]
+----
+./mvnw quarkus:add-extension -Dextensions="smallrye-fault-tolerance"
+----
+
+== pom.xml
+
+[source,xml]
+----
+<dependency>
+	<groupId>io.quarkus</groupId>
+	<artifactId>quarkus-smallrye-fault-tolerance</artifactId>
+</dependency>
+----
+
+== Testing bulkhead
+
+[source,bash]
+----
+ab -n 100 -c 10 http://localhost:8080/todos
+----
+
+= Links
+
+ - https://quarkus.io/guides/microprofile-fault-tolerance[Quarkus - Fault Tolerance]
