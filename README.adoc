@@ -45,16 +45,25 @@ Guides for this application
 == Requirements
 
 - Java 11
-- Graalvm 20.3.0
+- Graalvm 20.3.1
 - Postgres
 - Jaeger
 - https://github.com/Konloch/bytecode-viewer[Bytecode Viewer]
+
+=== Graalvm
+
+https://github.com/graalvm/graalvm-ce-builds/releases[Download page] for GraalVM Community Edition.
+
+https://www.graalvm.org/docs/getting-started/#install-graalvm[Install GraalVM]
+
+=== Postgres
 
 Start postgres with docker
 
 [source,bash]
 ----
-docker run --ulimit memlock=-1:-1 -it --rm=true \
+docker run -it --rm=true \
+	--ulimit memlock=-1:-1 \
 	--memory-swappiness=0 \
 	--name PostgreSQLWorkshop \
 	-e POSTGRES_USER=hibernate \
@@ -73,14 +82,17 @@ podman run -it --rm=true \
 	-e POSTGRES_USER=hibernate \
 	-e POSTGRES_PASSWORD=hibernate \
 	-e POSTGRES_DB=hibernate_db \
-	-p 5432:5432 postgres:13.1
+	-p 5432:5432 \
+	postgres:13.1
 ----
+
+=== Jaeger
 
 Start Jaeger with docker
 
 [source,bash]
 ----
-docker run  -it --rm=true \
+docker run -it --rm=true \
   -p 5775:5775/udp \
   -p 6831:6831/udp \
   -p 6832:6832/udp \
@@ -94,7 +106,7 @@ Start Jaeger with podman
 
 [source,bash]
 ----
-podman run  -it --rm=true \
+podman run -it --rm=true \
   -p 5775:5775/udp \
   -p 6831:6831/udp \
   -p 6832:6832/udp \
@@ -120,7 +132,7 @@ public class ToDo {
 
 [source,bash]
 ----
-mvn io.quarkus:quarkus-maven-plugin:1.11.0.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:1.11.1.Final:create \
     -DprojectGroupId=dk.jarry \
     -DprojectArtifactId=todo-app \
     -DclassName="dk.jarry.todo.boundary.ToDoResource" \
