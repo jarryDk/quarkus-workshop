@@ -1,0 +1,74 @@
+= todo-app-steep6
+
+MicroProfile Reactive Messaging to interact with Apache Kafka.
+
+== Requirements
+
+ - https://kafka.apache.org[Apache Kafka]
+
+https://kafka.apache.org/downloads[Download] Apache Kafka
+
+[source,bash]
+----
+tar -xzf kafka_2.13-2.7.0.tgz
+cd kafka_2.13-2.7.0
+----
+
+Start Zookeper
+[source,bash]
+----
+bin/zookeeper-server-start.sh config/zookeeper.properties
+----
+
+Start server
+[source,bash]
+----
+bin/kafka-server-start.sh config/server.properties
+----
+
+Listen to the topic todo-out
+[source,bash]
+----
+bin/kafka-console-consumer.sh --topic todo-out --from-beginning --bootstrap-server localhost:9092
+----
+
+
+== Add Quarkus extension
+
+[source,bash]
+----
+./mvnw quarkus:add-extension -Dextensions="smallrye-reactive-messaging-kafka"
+----
+
+== pom.xml
+
+[source,xml]
+----
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-smallrye-reactive-messaging-kafka</artifactId>
+</dependency>
+----
+
+
+== application.properties (Kafka)
+
+----
+# Configure the SmallRye Kafka connector
+kafka.bootstrap.servers=localhost:9092
+
+# Configure the Kafka source (we read from it)
+mp.messaging.incoming.todo-in.connector=smallrye-kafka
+mp.messaging.incoming.todo-in.topic=todo-in
+mp.messaging.incoming.todo-in.value.deserializer=dk.jarry.todo.control.jsonb.ToDoDeserializer
+
+# Configure the Kafka sink (we write to it)
+mp.messaging.outgoing.todo-out.connector=smallrye-kafka
+mp.messaging.outgoing.todo-out.topic=todo-out
+mp.messaging.outgoing.todo-out.value.serializer=io.quarkus.kafka.client.serialization.JsonbSerializer
+
+----
+
+== Links
+
+ - https://quarkus.io/guides/kafka[Quarkus - Using Apache Kafka with Reactive Messaging]
