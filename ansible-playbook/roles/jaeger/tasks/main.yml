@@ -1,0 +1,13 @@
+- name: Re-create a jaegertracing container
+  community.general.docker_container:
+    name: jaegertracing-demo
+    image: jaegertracing/all-in-one:1.21
+    state: present
+    recreate: yes
+    exposed_ports:
+      - 5775
+      - 6831
+      - 6832
+      - 5778
+      - 16686
+      - 14268
