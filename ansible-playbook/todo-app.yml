@@ -1,0 +1,15 @@
+- hosts: all
+
+  vars:
+    jaeger:
+      version: 1.21
+    postgres:
+      version: 13.1
+    
+
+  roles: 
+    - { role : jaeger }
+    - { role : postgres } 
+  
+  environment:
+    PATH: /home/dibs/gsoap-2.8/gsoap:{{ ansible_env.PATH }}
