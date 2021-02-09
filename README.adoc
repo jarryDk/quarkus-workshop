@@ -48,6 +48,7 @@ Guides for this application
 - Graalvm 20.3.1
 - Postgres
 - Jaeger
+- (PGAdmin)
 - https://github.com/Konloch/bytecode-viewer[Bytecode Viewer]
 
 === Graalvm
@@ -56,16 +57,27 @@ https://github.com/graalvm/graalvm-ce-builds/releases[Download page] for GraalVM
 
 https://www.graalvm.org/docs/getting-started/#install-graalvm[Install GraalVM]
 
-=== Postgres
+=== Containers
+
+[source,bash]
+----
+docker network create QuarkusWorkshop
+----
+
+[source,bash]
+----
+podman pod create --name QuarkusWorkshop -p 9876:80
+----
+
+==== Postgres
 
 Start postgres with docker
 
 [source,bash]
 ----
 docker run -it --rm=true \
-	--ulimit memlock=-1:-1 \
-	--memory-swappiness=0 \
-	--name PostgreSQLWorkshop \
+	--name PostgresQuarkusWorkshop \
+  --network QuarkusWorkshop \
 	-e POSTGRES_USER=hibernate \
 	-e POSTGRES_PASSWORD=hibernate \
 	-e POSTGRES_DB=hibernate_db \
@@ -77,8 +89,8 @@ Start postgres with podman
 [source,bash]
 ----
 podman run -it --rm=true \
-	--memory-swappiness=0 \
-	--name PostgreSQLWorkshop \
+	--name PostgresQuarkusWorkshop \
+  --pod=QuarkusWorkshop \
 	-e POSTGRES_USER=hibernate \
 	-e POSTGRES_PASSWORD=hibernate \
 	-e POSTGRES_DB=hibernate_db \
@@ -86,13 +98,22 @@ podman run -it --rm=true \
 	postgres:13.1
 ----
 
-=== Jaeger
+Update /etc/hosts to add PostgreQuarkusWorkshop dns.
+
+[source,bash]
+----
+echo "127.0.0.1 PostgreQuarkusWorkshop" >> /etc/hosts
+----
+
+==== Jaeger
 
 Start Jaeger with docker
 
 [source,bash]
 ----
 docker run -it --rm=true \
+  --name JaegerQuarkusWorkshop \
+  --network QuarkusWorkshop \
   -p 5775:5775/udp \
   -p 6831:6831/udp \
   -p 6832:6832/udp \
@@ -107,6 +128,8 @@ Start Jaeger with podman
 [source,bash]
 ----
 podman run -it --rm=true \
+  --name JaegerQuarkusWorkshop \
+  --pod=QuarkusWorkshop \
   -p 5775:5775/udp \
   -p 6831:6831/udp \
   -p 6832:6832/udp \
@@ -114,6 +137,36 @@ podman run -it --rm=true \
   -p 16686:16686 \
   -p 14268:14268 \
   jaegertracing/all-in-one:1.21
+----
+
+==== PGAdmin
+
+Open http://localhost:9876[PGAdmin] on localhost
+
+Start PGAdmin with docker
+
+[source,bash]
+----
+docker run -it --rm=true \
+  --name PGAdminQuarkusWorkshop \
+  --network QuarkusWorkshop \
+  -e 'PGADMIN_DEFAULT_EMAIL=boo@foo.dk' \
+  -e 'PGADMIN_DEFAULT_PASSWORD=QuarkusWorkshop' \
+  -p 9876:80 \
+  dpage/pgadmin4:4.30
+----
+
+Start PGAdmin with podman
+
+[source,bash]
+----
+podman run -it --rm=true \
+  --name PGAdminQuarkusWorkshop \
+  --pod=QuarkusWorkshop \
+  -e 'PGADMIN_DEFAULT_EMAIL=boo@foo.dk' \
+  -e 'PGADMIN_DEFAULT_PASSWORD=QuarkusWorkshop' \
+  -p 9876:9876 \
+  dpage/pgadmin4:4.30
 ----
 
 == Byg en microservice (ToDo app)
@@ -142,7 +195,9 @@ cd todo-app
 
 == Build and running App
 
-* Structure of quarkus-workshop* 
+* Structure of quarkus-workshop*
+
+----
 | quarkus-workshop
 - | todo-app-st
   - ...
@@ -157,7 +212,7 @@ cd todo-app
 	- todo-app-1.0.0-SNAPSHOT.jar
 	- | lib
 	  - *.jar
-
+----
 
 === Maven
 

@@ -44,7 +44,7 @@ In this steep we will
 
 ----
 quarkus.datasource.db-kind=postgresql
-quarkus.datasource.jdbc.url=jdbc:postgresql://PostgreSQLDemo:5432/hibernate_db
+quarkus.datasource.jdbc.url=jdbc:postgresql://PostgresQuarkusWorkshop:5432/hibernate_db
 quarkus.datasource.jdbc.driver=org.postgresql.Driver
 quarkus.datasource.username=hibernate
 quarkus.datasource.password=hibernate
