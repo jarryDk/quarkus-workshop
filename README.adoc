@@ -59,14 +59,18 @@ https://www.graalvm.org/docs/getting-started/#install-graalvm[Install GraalVM]
 
 === Containers
 
+Start a docker/podman network to make dns easy between the containers.
+
+*docker*
 [source,bash]
 ----
 docker network create QuarkusWorkshop
 ----
 
+*podman*
 [source,bash]
 ----
-podman pod create --name QuarkusWorkshop -p 9876:80
+podman pod create --name QuarkusWorkshop
 ----
 
 ==== Postgres
@@ -76,12 +80,12 @@ Start postgres with docker
 [source,bash]
 ----
 docker run -it --rm=true \
-	--name PostgresQuarkusWorkshop \
+  --name PostgresQuarkusWorkshop \
   --network QuarkusWorkshop \
-	-e POSTGRES_USER=hibernate \
-	-e POSTGRES_PASSWORD=hibernate \
-	-e POSTGRES_DB=hibernate_db \
-	-p 5432:5432 postgres:13.1
+  -e POSTGRES_USER=hibernate \
+  -e POSTGRES_PASSWORD=hibernate \
+  -e POSTGRES_DB=hibernate_db \
+  -p 5432:5432 postgres:13.1
 ----
 
 Start postgres with podman
@@ -89,13 +93,13 @@ Start postgres with podman
 [source,bash]
 ----
 podman run -it --rm=true \
-	--name PostgresQuarkusWorkshop \
+  --name PostgresQuarkusWorkshop \
   --pod=QuarkusWorkshop \
-	-e POSTGRES_USER=hibernate \
-	-e POSTGRES_PASSWORD=hibernate \
-	-e POSTGRES_DB=hibernate_db \
-	-p 5432:5432 \
-	postgres:13.1
+  -e POSTGRES_USER=hibernate \
+  -e POSTGRES_PASSWORD=hibernate \
+  -e POSTGRES_DB=hibernate_db \
+  -p 5432:5432 \
+  postgres:13.1
 ----
 
 Update /etc/hosts to add PostgreQuarkusWorkshop dns.
@@ -144,7 +148,6 @@ podman run -it --rm=true \
 Open http://localhost:9876[PGAdmin] on localhost
 
 Start PGAdmin with docker
-
 [source,bash]
 ----
 docker run -it --rm=true \
@@ -157,7 +160,6 @@ docker run -it --rm=true \
 ----
 
 Start PGAdmin with podman
-
 [source,bash]
 ----
 podman run -it --rm=true \
@@ -169,9 +171,9 @@ podman run -it --rm=true \
   dpage/pgadmin4:4.30
 ----
 
-== Byg en microservice (ToDo app)
+== Build a microservice (ToDo app)
 
-Modellen vi bygger vores service op omkring
+The model for our service
 
 [source,java]
 ----
@@ -195,13 +197,13 @@ cd todo-app
 
 == Build and running App
 
-* Structure of quarkus-workshop*
+*Structure of quarkus-workshop*
 
 ----
 | quarkus-workshop
 - | todo-app-st
   - ...
-- | todo-app-st
+- | todo-app
   - mvnw	
   - pom.xml
   - README.adoc
@@ -245,8 +247,7 @@ Run nativ version
 ----
 ./target/quarkus-workshop-todo-app-1.0.0-SNAPSHOT-runner
 ----
-
-This will need an OS - it contains all need - app and jdk.  
+  
 
 === Postgres
 
@@ -254,7 +255,7 @@ From application.properties
 
 ----
 quarkus.datasource.db-kind=postgresql
-quarkus.datasource.jdbc.url=jdbc:postgresql://PostgreSQLDemo:5432/hibernate_db
+quarkus.datasource.jdbc.url=jdbc:postgresql://PostgresQuarkusWorkshop:5432/hibernate_db
 quarkus.datasource.jdbc.driver=org.postgresql.Driver
 quarkus.datasource.username=hibernate
 quarkus.datasource.password=hibernate
@@ -356,7 +357,7 @@ public class ToDo extends PanacheEntity {
 }
 ----
 
-== Test from comman line
+== Tests from command line
 
 Create
 [source,bash]
@@ -400,7 +401,7 @@ curl -X GET "http://localhost:8080/todos?from=0&limit=100" -H "accept: applicati
 
 * bootstrapping the project
 * look into the file structure
-* We will have a look into `quarkus-todo-app-1.0.0-SNAPSHOT-runner.jar` to see what happens behind the screen.
+* We will have a look into `quarkus-todo-app-1.0.0-SNAPSHOT-runner.jar` to see what happens behind the screen with https://github.com/Konloch/bytecode-viewer[Bytecode Viewer].
 * add configuration (`@ConfigProperty`)
 
 link:todo-app-steep1/README.adoc[todo-app-steep1/README.adoc] 
