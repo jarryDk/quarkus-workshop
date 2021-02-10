@@ -32,6 +32,75 @@ Listen to the topic todo-out
 bin/kafka-console-consumer.sh --topic todo-out --from-beginning --bootstrap-server localhost:9092
 ----
 
+=== Containers
+
+==== Zookeeper
+
+Images expose port 8080 for admin.
+
+https://hub.docker.com/_/zookeeper
+
+Start Zookeeper with docker
+
+[source,bash]
+----
+docker run -it --rm=true \
+  --name ZookeeperQuarkusWorkshop \
+  --network QuarkusWorkshop \
+  -p 2181:2181 \
+  -p 2888:2888 \
+  -p 3888:3888 \
+  zookeeper:3.6.2
+----
+
+Start Zookeeper with podman
+
+[source,bash]
+----
+podman run -it --rm=true \
+  --name ZookeeperQuarkusWorkshop \
+  --pod=QuarkusWorkshop \
+  -p 2181:2181 \
+  -p 2888:2888 \
+  -p 3888:3888 \
+  zookeeper:3.6.2
+----
+
+
+==== Kafka
+
+Start Kafka with docker
+
+[source,bash]
+----
+docker run -it --rm=true \
+  --name KafkaQuarkusWorkshop \
+  --network QuarkusWorkshop \
+  -e KAFKA_ZOOKEEPER_CONNECT=ZookeeperQuarkusWorkshop:2181 \
+  -e KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=INSIDE:PLAINTEXT \
+  -e KAFKA_ADVERTISED_LISTENERS=INSIDE://:9092 \
+  -e KAFKA_LISTENERS=INSIDE://:9092 \
+  -e KAFKA_INTER_BROKER_LISTENER_NAME=INSIDE \
+  -p 9092:9092 \
+  wurstmeister/kafka:2.13-2.7.0
+----
+
+Start Kafka with podman
+
+[source,bash]
+----
+podman run -it --rm=true \
+  --name KafkaQuarkusWorkshop \
+  --pod=QuarkusWorkshop \
+  -e KAFKA_ZOOKEEPER_CONNECT=ZookeeperQuarkusWorkshop:2181 \
+  -e KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=INSIDE:PLAINTEXT \
+  -e KAFKA_ADVERTISED_LISTENERS=INSIDE://:9092 \
+  -e KAFKA_LISTENERS=INSIDE://:9092 \
+  -e KAFKA_INTER_BROKER_LISTENER_NAME=INSIDE \
+  -p 9092:9092 \
+  wurstmeister/kafka:2.13-2.7.0
+----
+
 
 == Add Quarkus extension
 
