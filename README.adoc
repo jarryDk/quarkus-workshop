@@ -1,16 +1,35 @@
-= Quarkus workshop - Redpill Linpro
+= Quarkus workshop
 
-En workshop om https://quarkus.io/[Quarkus] afholdt af https://www.redpill-linpro.com/[Redpill Linpro].
+A workshop about https://quarkus.io/[Quarkus] held by https://github.com/jarrydk[Michael Bornholdt Nielsen].
 
-I denne workshop vil vi efter en introduktion til https://quarkus.io/[Quarkus] lave en simpel todo microservice.
+In this workshop https://quarkus.io/[Quarkus] will be introduced and we will create a simpel todo microservice.
 
-Vores microservice vil hente og gemme data i en database (https://www.postgresql.org/[Postgres]) via CRUD, vi vil se på den indbyggede health, metrics og openapi.
+The microservice will have CRUD operations an will persist data in https://www.postgresql.org/[Postgres].  
 
-Hvis tiden tillader det, vil vi tage et kik på https://quarkus.io/guides/hibernate-orm-panache[panache] fra https://quarkus.io/[Quarkus].
+The workshop will have a side tracks where we 
 
-*Formen* i denne workshop bliver at instruktøren driver workshoppen ved at kode den endelige løsning, mens deltagerne kan kode med eller hente den færdige løsning. Der vil være rig mulighed for at stille spørgsmål undervejs.
+ - have a look at https://quarkus.io/guides/hibernate-orm-panache[panache] from https://quarkus.io/[Quarkus].
+ - use h2 as persisted layer
 
-*Målgruppen* for denne workshop er primært udviklere, men andre it-kyndige personer vil også kunne få udbytte, da vi ikke fordyber os i koden.
+If we have time to spare - we will
+
+  - use smallrye-fault-tolerance
+  - use https://kafka.apache.org/[Apache Kafka] in our microservice.
+
+
+*Form of the workshop*
+
+The workshop will be a driven by the instructor coden the application and the participants coding along or just getting the code from the git repo.
+Each new topic have its own folder in this git repo.
+
+By all means ask questions doing the workshop.
+
+*Target audience*
+
+The target group for this workshop is primarily developers, but other people will also be able to benefit.
+
+
+*Design pattern*
 
 Design pattern in the todo application - Boundary-Control-Entity.
 
@@ -40,7 +59,6 @@ Guides for this application
 - https://quarkus.io/guides/microprofile-metrics
 - https://quarkus.io/guides/openapi-swaggerui
 - https://quarkus.io/guides/opentracing
-
 
 == Requirements
 
@@ -102,7 +120,7 @@ podman run -it --rm=true \
   postgres:13.1
 ----
 
-Update /etc/hosts to add PostgreQuarkusWorkshop dns.
+Update /etc/hosts on our local machine to add PostgreQuarkusWorkshop dns.
 
 [source,bash]
 ----
