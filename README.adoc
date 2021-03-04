@@ -205,7 +205,7 @@ public class ToDo {
 
 [source,bash]
 ----
-mvn io.quarkus:quarkus-maven-plugin:1.12.0.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:1.12.1.Final:create \
     -DprojectGroupId=dk.jarry \
     -DprojectArtifactId=todo-app \
     -DclassName="dk.jarry.todo.boundary.ToDoResource" \
