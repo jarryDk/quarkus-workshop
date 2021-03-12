@@ -49,3 +49,20 @@ spec:
    - port: 8080
   selector:
    app: quarkus-todo
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: quarkus-todo
+spec:
+  rules:
+  - host: quarkus-todo.jarry.dk
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: quarkus-todo
+            port:
+              number: 8080

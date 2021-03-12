@@ -17,7 +17,8 @@ rm tmp/minikube-quarkus-todo-app-VERSION.yaml
 sed 's/QUARKUS_BUILD/'$QUARKUS_BUILD'/' tmp/minikube-quarkus-todo-app-REGISTRY_IP.yaml > tmp/minikube-quarkus-todo-app-$VERSION.yaml
 rm tmp/minikube-quarkus-todo-app-REGISTRY_IP.yaml
 
-if [ "X" != "X$CLEAN" ]; then 
+if [ "X" != "X$CLEAN" ]; then
+    kubectl delete ingress quarkus-todo
     kubectl delete service quarkus-todo
     kubectl delete deployment quarkus-todo
     kubectl delete configmap quarkus-todo-config
