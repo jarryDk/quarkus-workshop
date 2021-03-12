@@ -1,0 +1,76 @@
+= Minekube
+
+We like to get our todo-app up running on `minikube`.
+
+== Requirements
+
+We need a running minikube
+
+[source,bash]
+----
+minikube start --driver=podman --insecure-registry "192.168.1.0/24"
+----
+
+We need a running registry
+
+[source,bash]
+----
+podman run -it -p 5000:5000 --name registry registry:2
+----
+
+We need some running pods on minikube to serve
+
+- Postgres
+- pgaAdmin
+- Jaeger
+
+https://github.com/jarryDk/minikube
+
+== Build and deployment of todo-app to minikube
+
+=== build_and_push_image_to_registry.sh
+
+Build code, build an images and push it to registry.
+
+[source,bash]
+----
+build_push_image_to_registry.sh -v steep4 -ip 192.168.1.36 -b native
+----
+
+Both input `-v`, `ip` and `b` is optional.
+
+- -v : Version of images and post-fix for diff foler in this git repo
+- -ip : Ip number of registry (need to be in subset of `minikube start ... --insecure-registry=...`)
+- -b : How is quarkus code build (native|jvm)
+
+=== deploy_todo_app_to_minikube.sh
+
+Deploy the configuration to `minikube`
+
+- ConfigMap
+- Deployment
+- Service
+
+[source,bash]
+----
+deploy_todo_app_to_minikube.sh -v steep4 -b native
+----
+
+Both input `-v` and `b` is optional.
+
+- -v : Version of images and post-fix for diff foler in this git repo
+- -b : How is quarkus code build (native|jvm)
+
+
+=== unploy_todo_app_to_minikube.sh
+
+Undeploy the configuration from `minikube`
+
+- ConfigMap
+- Deployment
+- Service
+
+[source,bash]
+----
+undeploy_todo_app_to_minikube.sh
+----

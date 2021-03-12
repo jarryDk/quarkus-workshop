@@ -7,11 +7,11 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.native -t quarkus/todo-app-steep1 .
+# docker build -f src/main/docker/Dockerfile.native -t quarkus/todo-app .
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8080:8080 quarkus/todo-app-steep1
+# docker run -i --rm -p 8080:8080 quarkus/todo-app
 #
 ###
 FROM registry.access.redhat.com/ubi8/ubi-minimal:8.3
