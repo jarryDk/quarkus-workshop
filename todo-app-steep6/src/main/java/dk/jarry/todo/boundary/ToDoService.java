@@ -22,8 +22,6 @@ import org.eclipse.microprofile.opentracing.Traced;
 
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
-import io.smallrye.reactive.messaging.annotations.Broadcast;
-import org.eclipse.microprofile.reactive.messaging.Outgoing;
 
 @Traced
 @ApplicationScoped
