@@ -12,14 +12,13 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
-import dk.jarry.todo.entity.ToDo;
-
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Timed;
-
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+
+import dk.jarry.todo.entity.ToDo;
 
 @Path("/todos")
 @Tag(name = "Todo Resource", description = "All Todo Operations")

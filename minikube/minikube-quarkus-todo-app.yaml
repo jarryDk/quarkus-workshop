@@ -7,6 +7,11 @@ metadata:
 data:
   quarkus.datasource.jdbc.url: jdbc:postgresql://postgres:5432/hibernate_db
   quarkus.swagger-ui.always-include: 'true'
+  quarkus.ssl.native: 'false'
+  quarkus.jaeger.service-name: todo-app
+  quarkus.jaeger.sampler-type: const
+  quarkus.jaeger.sampler-param: '1'  
+  quarkus.jaeger.endpoint: http://jaegertracing:14268/api/traces
 ---
 apiVersion: apps/v1
 kind: Deployment
