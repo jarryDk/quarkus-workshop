@@ -8,6 +8,10 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
@@ -84,10 +88,27 @@ public class ToDoService {
         }
     }
 
-    @Transactional
-    public List<ToDo> list(Integer from, Integer limit) {
-        return entityManager.createQuery("SELECT f FROM ToDo f ORDER BY f.subject", ToDo.class) //
-                .getResultList();
+    @SuppressWarnings("unchecked")
+	@Transactional
+    public List<ToDo> list(Integer start, Integer limit) {
+    	
+    	CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<ToDo> criteriaQuery = criteriaBuilder.createQuery(ToDo.class);
+		
+		Root<ToDo> from = criteriaQuery.from(ToDo.class);
+	
+		criteriaQuery.select(from); 
+		criteriaQuery.orderBy( //
+				criteriaBuilder.asc(from.get("subject")), //
+				criteriaBuilder.desc(from.get("id")));
+		
+		Query jpqlQuery = entityManager.createQuery(criteriaQuery);
+    	
+		jpqlQuery.setFirstResult((start > 0 ? start - 1 : 0));
+		jpqlQuery.setMaxResults((limit > 0 ? limit : 100));
+		
+		return jpqlQuery.getResultList();
+        
     }
 
     @Provider

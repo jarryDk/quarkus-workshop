@@ -6,7 +6,7 @@ In this steep we will
 
 [source,bash]
 ----
-mvn io.quarkus:quarkus-maven-plugin:1.12.1.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:1.13.1.Final:create \
     -DprojectGroupId=dk.jarry \
     -DprojectArtifactId=todo-app-steep1 \
     -DclassName="dk.jarry.todo.boundary.ToDoResource" \
