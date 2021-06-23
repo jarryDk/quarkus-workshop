@@ -1,2 +1,30 @@
-- name: output
-  debug: msg="{{ ansible_default_ipv4.address }}"
+
+- name : Start postgres
+  block:
+  
+    - name: Re-create a postgres container with podman
+      containers.podman.podman_container:
+        name: PostgresQuarkusWorkshop
+        image: postgres:{{ postgress_version }}
+        state: present
+        recreate: yes
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_USER: hibernate
+          POSTGRES_PASSWORD: hibernate
+          POSTGRES_DB: hibernate_db     
+  when: container_state is defined and container_state == "present"
+  tags:
+    - podman  
+
+- name : Remove postgres
+  block:
+    - name: Stop and remove postgres container with podman
+      containers.podman.podman_container:
+        name: PostgresQuarkusWorkshop
+        state: absent       
+     
+  when: container_state is defined and container_state == "absent"
+  tags:
+    - podman

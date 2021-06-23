@@ -1,0 +1,31 @@
+
+- name : Start pgamin
+  block:
+
+    - name: Re-create a pgamin container with podman
+      containers.podman.podman_container:
+        name: PGAdminQuarkusWorkshop
+        image: dpage/pgadmin4:{{ pgadmin_version }}
+        state: present
+        recreate: yes
+        ports:
+          - "9876:9876"
+        env:
+          PGADMIN_DEFAULT_EMAIL: boo@foo.dk
+          PGADMIN_DEFAULT_PASSWORD: QuarkusWorkshop
+  
+  when: container_state is defined and container_state == "present"
+  tags:
+    - podman
+
+- name : Remove pgamin
+  block:
+
+    - name: Stop and remove pgamin container with podman
+      containers.podman.podman_container:
+        name: PGAdminQuarkusWorkshop
+        state: absent       
+
+  when: container_state is defined and container_state == "absent"
+  tags:
+    - podman

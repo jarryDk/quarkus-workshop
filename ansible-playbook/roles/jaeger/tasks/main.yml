@@ -1,13 +1,33 @@
-- name: Re-create a jaegertracing container
-  community.general.docker_container:
-    name: jaegertracing-demo
-    image: jaegertracing/all-in-one:1.21
-    state: present
-    recreate: yes
-    exposed_ports:
-      - 5775
-      - 6831
-      - 6832
-      - 5778
-      - 16686
-      - 14268
+
+- name : Start jaegertracing
+  block:
+
+    - name: Re-create a jaegertracing container with podman
+      containers.podman.podman_container:
+        name: jaegertracing-demo
+        image: jaegertracing/all-in-one:{{ jaeger_version }}
+        state: present
+        recreate: yes
+        exposed_ports:
+          - "5775"
+          - "6831"
+          - "6832"
+          - "5778"
+          - "16686"
+          - "14268"
+      
+  when: container_state is defined and container_state == "present"
+  tags:
+    - podman
+
+- name : Remove jaegertracing
+  block:
+
+    - name: Stop and remove jaegertracing container with podman
+      containers.podman.podman_container:
+        name: jaegertracing-demo
+        state: absent       
+  
+  when: container_state is defined and container_state == "absent"
+  tags:
+    - podman  

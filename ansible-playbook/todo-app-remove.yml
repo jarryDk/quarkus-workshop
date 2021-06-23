@@ -1,0 +1,14 @@
+- hosts: all
+
+  vars:
+    container_state: absent
+    
+  roles: 
+    - role : jaeger
+      tags: podman
+    - role : postgres
+      tags: podman
+    - role : pgadmin
+      tags: pgadmin
+    - role : kafka
+      tags: pgadmin  
