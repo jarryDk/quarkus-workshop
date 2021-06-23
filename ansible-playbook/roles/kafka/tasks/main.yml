@@ -1,0 +1,51 @@
+
+
+- name : Start zookeeper/kafka
+  block:
+
+    - name: Re-create a zookeeper container with podman
+      containers.podman.podman_container:
+        name: ZookeeperQuarkusWorkshop    
+        image: zookeeper:{{ zookeeper_version }}
+        state: present
+        recreate: yes
+        ports:
+          - "2181:2181"
+          - "2888:2888"
+          - "3888:3888"    
+    
+    - name: Re-create a kafka container with podman
+      containers.podman.podman_container:
+        name: KafkaQuarkusWorkshop    
+        image: wurstmeister/kafka:{{ wurstmeister_kafka_version }}
+        state: present
+        recreate: yes
+        ports:
+          - "9092:9092"
+        env:
+          KAFKA_ZOOKEEPER_CONNECT: ZookeeperQuarkusWorkshop:2181
+          KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT
+          KAFKA_ADVERTISED_LISTENERS: INSIDE://:9092
+          KAFKA_LISTENERS: INSIDE://:9092
+          KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+    
+  when: container_state is defined and container_state == "present"
+  tags:
+    - podman
+
+- name : Remove zookeeper/kafka
+  block:
+
+    - name: Stop and remove zookeeper container with podman
+      containers.podman.podman_container:
+        name: ZookeeperQuarkusWorkshop
+        state: absent       
+    
+    - name: Stop and remove kafka container with podman
+      containers.podman.podman_container:
+        name: KafkaQuarkusWorkshop
+        state: absent       
+    
+  when: container_state is defined and container_state == "absent"
+  tags:
+    - podman
