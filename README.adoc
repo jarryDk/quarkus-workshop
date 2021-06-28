@@ -63,7 +63,7 @@ Guides for this application
 == Requirements
 
 - Java 11
-- Graalvm 20.3.1
+- Graalvm 21.1.0
 - Postgres
 - Jaeger
 - (PGAdmin)
@@ -219,10 +219,10 @@ cd todo-app
   - | src
   - | target
     - todo-app-1.0.0-SNAPSHOT-runner
-	- todo-app-1.0.0-SNAPSHOT-runner.jar
-	- todo-app-1.0.0-SNAPSHOT.jar
-	- | lib
-	  - *.jar
+	  - | quarkus-app
+      - quarkus-run.jar
+      
+	
 ----
 
 === Maven
@@ -248,13 +248,13 @@ Build native version
 Run java version
 [source,bash]
 ----
-java -jar target/quarkus-workshop-todo-app-1.0.0-SNAPSHOT-runner.jar
+java -jar target/quarkus-app/quarkus-run.jar
 ----
 
 Run nativ version
 [source,bash]
 ----
-./target/quarkus-workshop-todo-app-1.0.0-SNAPSHOT-runner
+./target/todo-app-1.0.0-SNAPSHOT-runner
 ----
   
 
@@ -288,6 +288,12 @@ quarkus.hibernate-orm.database.generation=update
 
 == MicroProfile
 
+.MicroProfile 4.0
+image::images/MicroProfile4-768x344.png[MicroProfile 4.0]
+
+Update to MicroProfile 4.0 comes with Quarkus 2.0.0.Final.
+
+.MicroProfile 3.3
 image::images/MicroProfile3.3-768x446.png[MicroProfile 3.3] 
 
 https://quarkus.io/blog/tag/microprofile/[Blogs about Quarkus and MicroProfile]
