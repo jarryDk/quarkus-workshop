@@ -3,11 +3,18 @@
 
 == Requirements
 
+- ansible
+- podman
+- community.general
+- containers.podman
+
+.Install community.general
 [source,bash]
 ----
 ansible-galaxy collection install community.general
 ----
 
+.Install containers.podman
 [source,bash]
 ----
 ansible-galaxy collection install containers.podman
@@ -18,7 +25,7 @@ ansible-galaxy collection install containers.podman
 .Start containers
 [source,bash]
 ----
-ansible-playbook todo-app-remove.yml
+ansible-playbook todo-app-start.yml
 ----
 
 .Remove containers

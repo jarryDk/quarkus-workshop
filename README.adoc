@@ -41,7 +41,6 @@ Design pattern in the todo application - Boundary-Control-Entity.
 * Native (started in 0.068s)
 * Created and supported by Red Hat
 
-
 Supersonic Subatomic Java
 
 Project website : https://quarkus.io/
@@ -66,7 +65,11 @@ Guides for this application
 - Graalvm 21.1.0
 - Postgres
 - Jaeger
+- Kafka (from steep 6)
 - (PGAdmin)
+- (Ansible)
+- (Docker)
+- (Podman)
 - https://github.com/Konloch/bytecode-viewer[Bytecode Viewer]
 
 === Graalvm
@@ -76,6 +79,8 @@ https://github.com/graalvm/graalvm-ce-builds/releases[Download page] for GraalVM
 https://www.graalvm.org/docs/getting-started/#install-graalvm[Install GraalVM]
 
 === Containers
+
+All containers in this workshop can be started and removed be ansible playbooks. Just go to link:ansiblie-playbook/README.adoc[ansiblie-playbook/README.adoc].
 
 Start a docker/podman network to make dns easy between the containers.
 
@@ -288,8 +293,14 @@ quarkus.hibernate-orm.database.generation=update
 
 == MicroProfile
 
+Website for https://microprofile.io/[microprofile.io - MicroProfile]
+
+https://github.com/eclipse/microprofile/releases/tag/4.0[MicroProfile 4.0] on github.
+
 .MicroProfile 4.0
 image::images/MicroProfile4-768x344.png[MicroProfile 4.0]
+
+
 
 Update to MicroProfile 4.0 comes with Quarkus 2.0.0.Final.
 
