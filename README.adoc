@@ -62,8 +62,8 @@ Guides for this application
 
 == Requirements
 
-- Java 11
-- Graalvm 20.3.1
+- Java 17
+- Graalvm 21.3.1
 - Postgres
 - Jaeger
 - (PGAdmin)
@@ -97,7 +97,7 @@ docker run -it --rm=true \
   -e POSTGRES_USER=hibernate \
   -e POSTGRES_PASSWORD=hibernate \
   -e POSTGRES_DB=hibernate_db \
-  -p 5432:5432 postgres:13.1
+  -p 5432:5432 postgres:14.2
 ----
 
 Start postgres with podman
@@ -110,7 +110,7 @@ podman run -it --rm=true \
   -e POSTGRES_PASSWORD=hibernate \
   -e POSTGRES_DB=hibernate_db \
   -p 5432:5432 \
-  postgres:13.1
+  postgres:14.2
 ----
 
 Update /etc/hosts on our local machine to add PostgreQuarkusWorkshop dns.
@@ -196,7 +196,7 @@ public class ToDo {
 
 [source,bash]
 ----
-mvn io.quarkus:quarkus-maven-plugin:1.13.3.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:2.7.5.Final:create \
     -DprojectGroupId=dk.jarry \
     -DprojectArtifactId=todo-app \
     -DclassName="dk.jarry.todo.boundary.ToDoResource" \
