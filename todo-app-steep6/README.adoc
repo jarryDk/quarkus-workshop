@@ -10,8 +10,8 @@ https://kafka.apache.org/downloads[Download] Apache Kafka
 
 [source,bash]
 ----
-tar -xzf kafka_2.13-2.7.0.tgz
-cd kafka_2.13-2.7.0
+tar -xzf kafka_2.13-3.2.1tgz
+cd kafka_2.13-3.2.1
 ----
 
 Start Zookeper

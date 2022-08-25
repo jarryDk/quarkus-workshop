@@ -1,7 +1,5 @@
-
-- name : Start jaegertracing
+- name: Start jaegertracing
   block:
-
     - name: Re-create a jaegertracing container with podman
       containers.podman.podman_container:
         name: jaegertracing-demo
@@ -15,19 +13,18 @@
           - "5778"
           - "16686"
           - "14268"
-      
+
   when: container_state is defined and container_state == "present"
   tags:
     - podman
 
-- name : Remove jaegertracing
+- name: Remove jaegertracing
   block:
-
     - name: Stop and remove jaegertracing container with podman
       containers.podman.podman_container:
         name: jaegertracing-demo
-        state: absent       
-  
+        state: absent
+
   when: container_state is defined and container_state == "absent"
   tags:
-    - podman  
+    - podman

@@ -26,7 +26,7 @@ public class LoggingFilter implements ContainerRequestFilter {
         final String method = context.getMethod();
         final String path = info.getPath();
         final String address = request.remoteAddress().toString();
-        
+
         LOG.infof("Request %s %s from IP %s", method, path, address);
     }
 }

@@ -13,7 +13,7 @@ import javax.enterprise.context.ApplicationScoped;
 @Readiness
 @ApplicationScoped
 public class DemoHealthCheck implements HealthCheck {
-    
+
     @Override
     public HealthCheckResponse call() {
         HealthCheckResponseBuilder responseBuilder = HealthCheckResponse.named("Demo health check");

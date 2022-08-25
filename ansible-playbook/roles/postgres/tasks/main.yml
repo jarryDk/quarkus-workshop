@@ -1,7 +1,5 @@
-
-- name : Start postgres
+- name: Start postgres
   block:
-  
     - name: Re-create a postgres container with podman
       containers.podman.podman_container:
         name: PostgresQuarkusWorkshop
@@ -13,18 +11,18 @@
         env:
           POSTGRES_USER: hibernate
           POSTGRES_PASSWORD: hibernate
-          POSTGRES_DB: hibernate_db     
+          POSTGRES_DB: hibernate_db
   when: container_state is defined and container_state == "present"
   tags:
-    - podman  
+    - podman
 
-- name : Remove postgres
+- name: Remove postgres
   block:
     - name: Stop and remove postgres container with podman
       containers.podman.podman_container:
         name: PostgresQuarkusWorkshop
-        state: absent       
-     
+        state: absent
+
   when: container_state is defined and container_state == "absent"
   tags:
     - podman

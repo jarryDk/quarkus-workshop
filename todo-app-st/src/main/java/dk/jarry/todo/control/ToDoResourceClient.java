@@ -17,12 +17,12 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 @Path("todos")
 @RegisterRestClient(baseUri = "http://localhost:8080")
 public interface ToDoResourceClient {
-    
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    JsonObject create(JsonObject toDo);
-    
-    @GET
+
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	JsonObject create(JsonObject toDo);
+
+	@GET
 	@Path("{id}")
 	JsonObject read(@PathParam("id") Integer id);
 
@@ -31,11 +31,11 @@ public interface ToDoResourceClient {
 	JsonObject update(@PathParam("id") Integer id, JsonObject toDo);
 
 	@DELETE
-	@Path("{id}")	
+	@Path("{id}")
 	public void delete(@PathParam("id") Integer id);
 
 	@GET
 	public JsonArray list( //
-		@QueryParam("from") Integer from, //
-		@QueryParam("limit") Integer limit) ;
+			@QueryParam("from") Integer from, //
+			@QueryParam("limit") Integer limit);
 }

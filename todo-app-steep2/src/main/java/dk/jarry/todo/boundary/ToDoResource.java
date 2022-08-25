@@ -17,7 +17,7 @@ import dk.jarry.todo.entity.ToDo;
 @Path("/todos")
 public class ToDoResource {
 
-    @Inject
+	@Inject
 	ToDoService toDoService;
 
 	@POST
@@ -38,15 +38,15 @@ public class ToDoResource {
 	}
 
 	@DELETE
-	@Path("{id}")	
+	@Path("{id}")
 	public void delete(@PathParam("id") Long id) {
 		toDoService.delete(id);
 	}
 
 	@GET
 	public List<ToDo> list( //
-		@DefaultValue("0") @QueryParam("from") Integer from, //
-		@DefaultValue("100") @QueryParam("limit") Integer limit) {
+			@DefaultValue("0") @QueryParam("from") Integer from, //
+			@DefaultValue("100") @QueryParam("limit") Integer limit) {
 		return toDoService.list(from, limit);
 	}
 

@@ -63,7 +63,7 @@ Guides for this application
 == Requirements
 
 - Java 17
-- Graalvm 21.3.1
+- Graalvm 22.2.0
 - Postgres
 - Jaeger
 - (PGAdmin)
@@ -97,7 +97,7 @@ docker run -it --rm=true \
   -e POSTGRES_USER=hibernate \
   -e POSTGRES_PASSWORD=hibernate \
   -e POSTGRES_DB=hibernate_db \
-  -p 5432:5432 postgres:14.2
+  -p 5432:5432 postgres:14.5
 ----
 
 Start postgres with podman
@@ -110,7 +110,7 @@ podman run -it --rm=true \
   -e POSTGRES_PASSWORD=hibernate \
   -e POSTGRES_DB=hibernate_db \
   -p 5432:5432 \
-  postgres:14.2
+  postgres:14.5
 ----
 
 Update /etc/hosts on our local machine to add PostgreQuarkusWorkshop dns.
@@ -135,7 +135,7 @@ docker run -it --rm=true \
   -p 5778:5778 \
   -p 16686:16686 \
   -p 14268:14268 \
-  jaegertracing/all-in-one:1.21
+  jaegertracing/all-in-one:1.37
 ----
 
 Start Jaeger with podman
@@ -150,7 +150,7 @@ podman run -it --rm=true \
   -p 5778:5778 \
   -p 16686:16686 \
   -p 14268:14268 \
-  jaegertracing/all-in-one:1.21
+  jaegertracing/all-in-one:1.37
 ----
 
 ==== PGAdmin
@@ -166,7 +166,7 @@ docker run -it --rm=true \
   -e 'PGADMIN_DEFAULT_EMAIL=boo@foo.dk' \
   -e 'PGADMIN_DEFAULT_PASSWORD=QuarkusWorkshop' \
   -p 9876:80 \
-  dpage/pgadmin4:4.30
+  dpage/pgadmin4:6.12
 ----
 
 Start PGAdmin with podman
@@ -177,7 +177,7 @@ podman run -it --rm=true \
   -e 'PGADMIN_DEFAULT_EMAIL=boo@foo.dk' \
   -e 'PGADMIN_DEFAULT_PASSWORD=QuarkusWorkshop' \
   -p 9876:9876 \
-  dpage/pgadmin4:4.30
+  dpage/pgadmin4:6.12
 ----
 
 == Build a microservice (ToDo app)
@@ -196,7 +196,7 @@ public class ToDo {
 
 [source,bash]
 ----
-mvn io.quarkus:quarkus-maven-plugin:2.7.5.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:2.11.3.Final:create \
     -DprojectGroupId=dk.jarry \
     -DprojectArtifactId=todo-app \
     -DclassName="dk.jarry.todo.boundary.ToDoResource" \
@@ -213,7 +213,7 @@ cd todo-app
 - | todo-app-st
   - ...
 - | todo-app
-  - mvnw	
+  - mvnw
   - pom.xml
   - README.adoc
   - | src
@@ -256,7 +256,7 @@ Run nativ version
 ----
 ./target/quarkus-workshop-todo-app-1.0.0-SNAPSHOT-runner
 ----
-  
+
 
 === Postgres
 
@@ -288,7 +288,7 @@ quarkus.hibernate-orm.database.generation=update
 
 == MicroProfile
 
-image::images/MicroProfile3.3-768x446.png[MicroProfile 3.3] 
+image::images/MicroProfile3.3-768x446.png[MicroProfile 3.3]
 
 https://quarkus.io/blog/tag/microprofile/[Blogs about Quarkus and MicroProfile]
 
@@ -305,7 +305,7 @@ http://localhost:8080/health-ui/ (Not part of MicroProfile)
 ----
 curl -X GET \
 	http://localhost:8080/health \
-	-H 'Accept: application/json' 
+	-H 'Accept: application/json'
 ----
 
 https://quarkus.io/guides/health-guide[quarkus.io - Health Guide]
@@ -319,7 +319,7 @@ http://localhost:8080/metrics/application
 ----
 curl -X GET \
 	http://localhost:8080/metrics/application \
-	-H 'Accept: application/json' 
+	-H 'Accept: application/json'
 ----
 
 https://quarkus.io/guides/metrics-guide[quarkus.io - Metrics Guide]
@@ -330,7 +330,7 @@ https://quarkus.io/guides/metrics-guide[quarkus.io - Metrics Guide]
 - http://localhost:8080/openapi[OpenAPI]
 - http://localhost:8080/swagger-ui[swagger-ui]
 
-OpenAPI and Swagger-UI only works in dev and test mode. 
+OpenAPI and Swagger-UI only works in dev and test mode.
 
 
 If you want to make it available in production too, you can include the following configuration in your application.properties:
@@ -472,4 +472,4 @@ Containg
 * test
 	- ToDoResourceTest
 
-link:todo-app-st/README.adoc[todo-app-st/README.adoc] 
+link:todo-app-st/README.adoc[todo-app-st/README.adoc]
