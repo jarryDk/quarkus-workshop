@@ -6,11 +6,11 @@ metadata:
     app: quarkus-todo
 data:
   quarkus.datasource.jdbc.url: jdbc:postgresql://postgres:5432/hibernate_db
-  quarkus.swagger-ui.always-include: 'true'
-  quarkus.ssl.native: 'false'
+  quarkus.swagger-ui.always-include: "true"
+  quarkus.ssl.native: "false"
   quarkus.jaeger.service-name: todo-app
   quarkus.jaeger.sampler-type: const
-  quarkus.jaeger.sampler-param: '1'  
+  quarkus.jaeger.sampler-param: "1"
   quarkus.jaeger.endpoint: http://jaegertracing:14268/api/traces
 ---
 apiVersion: apps/v1
@@ -26,7 +26,7 @@ spec:
     metadata:
       labels:
         app: quarkus-todo
-    spec:      
+    spec:
       containers:
         - name: quarkus-todo-app
           image: REGISTRY_IP:5000/quarkus/QUARKUS_BUILD/todo-app:VERSION
@@ -46,9 +46,9 @@ metadata:
 spec:
   type: NodePort
   ports:
-   - port: 8080
+    - port: 8080
   selector:
-   app: quarkus-todo
+    app: quarkus-todo
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -56,13 +56,13 @@ metadata:
   name: quarkus-todo
 spec:
   rules:
-  - host: quarkus-todo.jarry.dk
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: quarkus-todo
-            port:
-              number: 8080
+    - host: quarkus-todo.jarry.dk
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: quarkus-todo
+                port:
+                  number: 8080

@@ -2,13 +2,13 @@
 
   vars:
     container_state: absent
-    
-  roles: 
-    - role : jaeger
+
+  roles:
+    - role: jaeger
       tags: podman
-    - role : postgres
+    - role: postgres
       tags: podman
-    - role : pgadmin
+    - role: pgadmin
       tags: pgadmin
-    - role : kafka
-      tags: pgadmin  
+    - role: kafka
+      tags: pgadmin

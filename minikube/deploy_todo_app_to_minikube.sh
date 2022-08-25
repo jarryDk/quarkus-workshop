@@ -3,7 +3,7 @@
 source config.sh
 
 if [ -d "tmp" ] ; then
-    rm -rf tmp 
+    rm -rf tmp
 fi
 mkdir tmp
 cp minikube-quarkus-todo-app.yaml tmp/minikube-quarkus-todo-app.yaml
@@ -24,7 +24,7 @@ if [ "X" != "X$CLEAN" ]; then
     kubectl delete configmap quarkus-todo-config
 fi
 
-kubectl create -f tmp/minikube-quarkus-todo-app-$VERSION.yaml 
+kubectl create -f tmp/minikube-quarkus-todo-app-$VERSION.yaml
 rm -rf tmp
 
 ENDPOINT=$(minikube service quarkus-todo --url)
